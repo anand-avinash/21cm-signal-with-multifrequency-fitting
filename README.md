@@ -1,6 +1,6 @@
 # Statistical Detection of 21 cm Signal from the Epoch of Reionization
 
-Here is the program I wrote for my master's thesis project. This program uses the multi-frequency fitting method to extract the 21 cm signal blindly from a contaminated signal. It also covers an attempt to recover the 21cm signal power spectrum from the contaminated signal cube.
+Here is the program I wrote for my master's thesis project. This program uses the multi-frequency fitting method to extract the 21 cm signal blindly from a contaminated signal [[1](#ref1),[2](#ref2)]. It also covers an attempt to recover the 21cm signal power spectrum from the contaminated signal cube [[3](#ref3),[4](#ref4)].
 
 ## Program description
 
@@ -15,13 +15,15 @@ Here is the program I wrote for my master's thesis project. This program uses th
   3. Run the executable `execute` with appropriate arguments:
 
      ```shell
-     ./execute [frequency (in MHz)] [XY_pix] [Z_pix] [Int_time (hrs)] [expo_array] #To simulate the 21 cm fields
+     #To simulate the 21 cm fields
+     ./execute [frequency (in MHz)] [XY_pix] [Z_pix] [Int_time (hrs)] [expo_array]
      ```
 
      OR
 
      ```shell
-     ./execute [header] [XY_pix] [Int_time (hrs)] -o [offset] [expo_array] #To read the 21 cm fields from SKA blind challenge data
+     #To read the 21 cm fields from SKA blind challenge data
+     ./execute [header] [XY_pix] [Int_time (hrs)] -o [offset] [expo_array]
      ```
 
 - You must have FFTW and GSL installed. See  
@@ -32,12 +34,13 @@ Here is the program I wrote for my master's thesis project. This program uses th
 ## Notes
 
 - You'll need dimensionless power spectrum in `ps_table/` to simulate the 21 cm field.
-- The SKA blind challenge dataset was scaled down and had positive and negative data points as well. The multi-frequency fitting method requires us to compute the logarithm of the data points and then attempts to fit the foreground out of it. So in order to apply the foreground removal technique, a constant positive offset was added to all the data points prior to the foreground removal.
+- `ska_data/` stores the SKA blind challenge data. See `ska_data/.gitignore` for the list of files that needs to be there.
+- The SKA blind challenge dataset was scaled down and had positive and negative data points as well. The multi-frequency fitting method requires computing the logarithm of the data points to fit the foreground. So in order to apply the foreground removal technique, a constant positive offset was added to all the data points prior to the foreground removal.
 
 ## Plotting description
 
 - `plots/plot_2dps_1.py`  
-  Plots the 2D power spectrum (Datta, Bowman) of simulated eor, eor + free-free, eor + free-free + point sources, and eor + total foreground fields
+  Plots the 2D power spectrum [[3](#ref3),[4](#ref4)] of simulated eor, eor + free-free, eor + free-free + point sources, and eor + total foreground fields
 - `plots/plot_2dps_2.py`  
   Plots the 2D power spectrum of SKA blind challenge data for a given tau, polystr, offset and header
 - `plots/plot_3dps_1.py`  
@@ -53,7 +56,7 @@ Here is the program I wrote for my master's thesis project. This program uses th
 
 ## References
 
-1. Li-Ping He. Foreground removal of 21 cm fluctuation with multifrequency fitting. *Research in Astronomy and Astrophysics 9.6 (2009), p. 653*.
-2. Max Tegmark et al. Foregrounds and Forecasts for the Cosmic Microwave Background. *The Astrophysical Journal 530.1 (2000), p. 133*.
-3. A. Datta, J. D. Bowman, and C. L. Carilli. Bright Source Subtraction Requirements for Redshifted 21 cm Measurements. *The Astrophysical Journal 724 (Nov. 2010), pp. 526–538*.
-4. Adrian Liu, Aaron R. Parsons, and Cathryn M. Trott. Epoch of reionization window. II. Statistical methods for foreground wedge reduction. *Phys. Rev. D 90 (2 2014), p. 023019*.
+1. <a id="ref1"></a> Li-Ping He. Foreground removal of 21 cm fluctuation with multifrequency fitting. *Research in Astronomy and Astrophysics 9.6 (2009), p. 653*.
+2. <a id="ref2"></a> Max Tegmark et al. Foregrounds and Forecasts for the Cosmic Microwave Background. *The Astrophysical Journal 530.1 (2000), p. 133*.
+3. <a id="ref3"></a> A. Datta, J. D. Bowman, and C. L. Carilli. Bright Source Subtraction Requirements for Redshifted 21 cm Measurements. *The Astrophysical Journal 724 (Nov. 2010), pp. 526–538*.
+4. <a id="ref4"></a> Adrian Liu, Aaron R. Parsons, and Cathryn M. Trott. Epoch of reionization window. II. Statistical methods for foreground wedge reduction. *Phys. Rev. D 90 (2 2014), p. 023019*.
